@@ -23,23 +23,31 @@
         </div>
       </div>
 
-      <!-- 用户信息卡片 -->
-      <div class="bg-white rounded-cute shadow-cute p-4 mb-6 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center text-white text-xl">
-            {{ userInitial }}
+      <!-- 用户信息和天气 -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <!-- 用户信息卡片 -->
+        <div class="bg-white rounded-cute shadow-cute p-4 flex items-center justify-between lg:col-span-1">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center text-white text-xl">
+              {{ userInitial }}
+            </div>
+            <div>
+              <p class="font-semibold text-gray-800">{{ userName }}</p>
+              <p class="text-sm text-gray-500">已记录 {{ outfits.length }} 天穿搭</p>
+            </div>
           </div>
-          <div>
-            <p class="font-semibold text-gray-800">{{ userName }}</p>
-            <p class="text-sm text-gray-500">已记录 {{ outfits.length }} 天穿搭</p>
-          </div>
+          <button
+            @click="handleLogout"
+            class="text-gray-500 hover:text-primary-500 transition-colors px-4 py-2"
+          >
+            退出登录
+          </button>
         </div>
-        <button
-          @click="handleLogout"
-          class="text-gray-500 hover:text-primary-500 transition-colors px-4 py-2"
-        >
-          退出登录
-        </button>
+
+        <!-- 天气卡片 -->
+        <div class="lg:col-span-2">
+          <WeatherCard />
+        </div>
       </div>
 
       <!-- 加载状态 -->
@@ -129,6 +137,7 @@ import { useRouter } from 'vue-router'
 import { getDailyOutfits, deleteDailyOutfit } from '@/api/dailyOutfit'
 import { logout } from '@/api/auth'
 import type { DailyOutfit } from '@/types'
+import WeatherCard from '@/components/WeatherCard.vue'
 
 const router = useRouter()
 const loading = ref(false)

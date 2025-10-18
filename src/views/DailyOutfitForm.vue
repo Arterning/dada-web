@@ -117,6 +117,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { createDailyOutfit, updateDailyOutfit, getDailyOutfit } from '@/api/dailyOutfit'
+import { getCurrentWeather } from '@/api/weather'
 import type { CreateDailyOutfitRequest } from '@/types'
 
 const router = useRouter()
@@ -134,7 +135,21 @@ const outfitForm = ref<CreateDailyOutfitRequest>({
   clothing_ids: [],
 })
 
-// 如果是编辑模式，加载数据
+// 加载天气数据并自动填充
+const loadWeatherData = async () => {
+  try {
+    const weatherData = await getCurrentWeather()
+    // 只在新增模式下自动填充天气
+    if (!isEdit.value) {
+      outfitForm.value.temperature = `${Math.round(weatherData.temperature)}°C`
+      outfitForm.value.weather = weatherData.weather
+    }
+  } catch (error) {
+    console.error('加载天气数据失败:', error)
+  }
+}
+
+// 如果是编辑模式，加载数据；否则加载天气数据
 onMounted(async () => {
   const id = route.params.id
   if (id) {
@@ -151,6 +166,9 @@ onMounted(async () => {
     } catch (error: any) {
       errorMessage.value = '加载穿搭记录失败'
     }
+  } else {
+    // 新增模式，自动填充天气
+    await loadWeatherData()
   }
 })
 

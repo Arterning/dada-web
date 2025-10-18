@@ -72,3 +72,18 @@ export interface UpdateDailyOutfitRequest {
   weather?: string
   clothing_ids?: number[]
 }
+
+// 天气数据类型
+export interface Weather {
+  id: number
+  city: string
+  temperature: number
+  weather: string
+  future_weather: string
+  wind_direction: string
+  wind_speed: number
+  sunrise: string
+  sunset: string
+  created_at: string
+  updated_at: string
+}
