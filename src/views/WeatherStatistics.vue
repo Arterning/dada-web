@@ -101,7 +101,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart, BarChart } from 'echarts/charts'
+import { LineChart, BarChart, PieChart  } from 'echarts/charts'
 import {
   TitleComponent,
   TooltipComponent,
@@ -116,6 +116,7 @@ use([
   CanvasRenderer,
   LineChart,
   BarChart,
+  PieChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
