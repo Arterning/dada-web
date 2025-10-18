@@ -87,3 +87,18 @@ export interface Weather {
   created_at: string
   updated_at: string
 }
+
+// 天气统计数据类型
+export interface WeatherStatistics {
+  time_series: {
+    date: string
+    temperature: number
+    weather: string
+  }[]
+  temp_distribution: {
+    name: string
+    count: number
+    color: string
+  }[]
+  total_days: number
+}

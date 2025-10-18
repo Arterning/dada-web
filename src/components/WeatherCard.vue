@@ -5,19 +5,27 @@
     </div>
 
     <div v-else-if="weather" class="space-y-4">
-      <!-- 城市和刷新 -->
+      <!-- 城市和操作按钮 -->
       <div class="flex items-center justify-between">
         <h3 class="text-xl font-bold flex items-center gap-2">
           <span>📍</span>
           <span>{{ weather.city }}</span>
         </h3>
-        <button
-          @click="refreshWeatherData"
-          :disabled="refreshing"
-          class="px-3 py-1 bg-white/20 hover:bg-white/30 rounded-full text-sm transition-colors disabled:opacity-50"
-        >
-          {{ refreshing ? '刷新中...' : '🔄 刷新' }}
-        </button>
+        <div class="flex gap-2">
+          <button
+            @click="$router.push('/weather/statistics')"
+            class="px-3 py-1 bg-white/20 hover:bg-white/30 rounded-full text-sm transition-colors"
+          >
+            📊 历史
+          </button>
+          <button
+            @click="refreshWeatherData"
+            :disabled="refreshing"
+            class="px-3 py-1 bg-white/20 hover:bg-white/30 rounded-full text-sm transition-colors disabled:opacity-50"
+          >
+            {{ refreshing ? '刷新中...' : '🔄 刷新' }}
+          </button>
+        </div>
       </div>
 
       <!-- 主要天气信息 -->
