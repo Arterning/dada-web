@@ -7,12 +7,20 @@
           <h1 class="text-3xl font-bold text-gray-800 mb-2">👗 我的穿搭日记</h1>
           <p class="text-gray-600">记录每一天的美好穿搭</p>
         </div>
-        <button
-          @click="router.push('/daily-outfits/new')"
-          class="bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold px-6 py-3 rounded-cute hover:from-primary-600 hover:to-primary-700 transition-all transform hover:scale-105 shadow-cute"
-        >
-          ✨ 新增穿搭
-        </button>
+        <div class="flex gap-3">
+          <button
+            @click="router.push('/clothes')"
+            class="px-6 py-3 border-2 border-primary-300 text-primary-600 rounded-cute hover:bg-primary-50 transition-all"
+          >
+            👔 我的衣橱
+          </button>
+          <button
+            @click="router.push('/daily-outfits/new')"
+            class="bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold px-6 py-3 rounded-cute hover:from-primary-600 hover:to-primary-700 transition-all transform hover:scale-105 shadow-cute"
+          >
+            ✨ 新增穿搭
+          </button>
+        </div>
       </div>
 
       <!-- 用户信息卡片 -->
