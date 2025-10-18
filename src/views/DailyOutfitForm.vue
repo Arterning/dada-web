@@ -127,8 +127,16 @@ const errorMessage = ref('')
 const successMessage = ref('')
 const isEdit = ref(false)
 
+// 获取东八区当前日期
+const getLocalDate = () => {
+  const now = new Date()
+  const offset = 8 * 60 // 东八区偏移分钟数
+  const localTime = new Date(now.getTime() + offset * 60 * 1000)
+  return localTime.toISOString().split('T')[0]
+}
+
 const outfitForm = ref<CreateDailyOutfitRequest>({
-  date: new Date().toISOString().split('T')[0],
+  date: getLocalDate(),
   todays_clothes: '',
   temperature: '',
   weather: '',
