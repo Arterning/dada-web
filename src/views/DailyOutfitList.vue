@@ -1,19 +1,13 @@
 <template>
-  <div class="min-h-screen py-8 px-4">
-    <div class="max-w-6xl mx-auto">
-      <!-- 头部 -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-        <div>
-          <h1 class="text-3xl font-bold text-gray-800 mb-2">👗 我的穿搭日记</h1>
-          <p class="text-gray-600">记录每一天的美好穿搭</p>
-        </div>
-        <div class="flex gap-3">
-          <button
-            @click="router.push('/clothes')"
-            class="px-6 py-3 border-2 border-primary-300 text-primary-600 rounded-cute hover:bg-primary-50 transition-all"
-          >
-            👔 我的衣橱
-          </button>
+  <MainLayout>
+    <div class="py-8 px-4">
+      <div class="max-w-6xl mx-auto">
+        <!-- 头部 -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">👗 我的穿搭日记</h1>
+            <p class="text-gray-600">记录每一天的美好穿搭</p>
+          </div>
           <button
             @click="router.push('/daily-outfits/new')"
             class="bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold px-6 py-3 rounded-cute hover:from-primary-600 hover:to-primary-700 transition-all transform hover:scale-105 shadow-cute"
@@ -21,34 +15,11 @@
             ✨ 新增穿搭
           </button>
         </div>
-      </div>
-
-      <!-- 用户信息和天气 -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <!-- 用户信息卡片 -->
-        <div class="bg-white rounded-cute shadow-cute p-4 flex items-center justify-between lg:col-span-1">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center text-white text-xl">
-              {{ userInitial }}
-            </div>
-            <div>
-              <p class="font-semibold text-gray-800">{{ userName }}</p>
-              <p class="text-sm text-gray-500">已记录 {{ outfits.length }} 天穿搭</p>
-            </div>
-          </div>
-          <button
-            @click="handleLogout"
-            class="text-gray-500 hover:text-primary-500 transition-colors px-4 py-2"
-          >
-            退出登录
-          </button>
-        </div>
 
         <!-- 天气卡片 -->
-        <div class="lg:col-span-2">
+        <div class="mb-6">
           <WeatherCard />
         </div>
-      </div>
 
       <!-- 加载状态 -->
       <div v-if="loading" class="text-center py-12">
@@ -128,33 +99,21 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+  </MainLayout>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getDailyOutfits, deleteDailyOutfit } from '@/api/dailyOutfit'
-import { logout } from '@/api/auth'
 import type { DailyOutfit } from '@/types'
+import MainLayout from '@/components/MainLayout.vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 
 const router = useRouter()
 const loading = ref(false)
 const outfits = ref<DailyOutfit[]>([])
-
-const userName = computed(() => {
-  const userStr = localStorage.getItem('user')
-  if (userStr) {
-    const user = JSON.parse(userStr)
-    return user.nickname || user.username
-  }
-  return '用户'
-})
-
-const userInitial = computed(() => {
-  return userName.value.charAt(0).toUpperCase()
-})
 
 // 加载穿搭列表
 const loadOutfits = async () => {
@@ -179,14 +138,6 @@ const handleDelete = async (id: number) => {
     outfits.value = outfits.value.filter(outfit => outfit.id !== id)
   } catch (error) {
     alert('删除失败，请稍后再试')
-  }
-}
-
-// 登出
-const handleLogout = () => {
-  if (confirm('确定要退出登录吗？')) {
-    logout()
-    router.push('/login')
   }
 }
 

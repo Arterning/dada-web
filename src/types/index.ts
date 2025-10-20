@@ -102,3 +102,47 @@ export interface WeatherStatistics {
   }[]
   total_days: number
 }
+
+// 穿搭中的服装项（包含位置、旋转、缩放等信息）
+export interface OutfitClothingItem {
+  clothing_id: number
+  name?: string
+  image_url?: string
+  category?: string
+  x: number
+  y: number
+  angle: number
+  scale: number
+}
+
+// 穿搭类型
+export interface Outfit {
+  id: number
+  name: string
+  image_url?: string
+  clothes: OutfitClothingItem[]
+  created_at: string
+}
+
+// 创建穿搭请求
+export interface CreateOutfitRequest {
+  name: string
+  image_url?: string
+  clothes?: OutfitClothingItem[]
+}
+
+// 更新穿搭请求
+export interface UpdateOutfitRequest {
+  name?: string
+  image_url?: string
+  clothes?: OutfitClothingItem[]
+}
+
+// 添加服装到穿搭请求
+export interface AddClothingToOutfitRequest {
+  clothing_id: number
+  x?: number
+  y?: number
+  angle?: number
+  scale?: number
+}

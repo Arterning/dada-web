@@ -1,19 +1,13 @@
 <template>
-  <div class="min-h-screen py-8 px-4">
-    <div class="max-w-6xl mx-auto">
-      <!-- 头部 -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-        <div>
-          <h1 class="text-3xl font-bold text-gray-800 mb-2">👔 我的衣橱</h1>
-          <p class="text-gray-600">管理你的所有服装</p>
-        </div>
-        <div class="flex gap-3">
-          <button
-            @click="router.push('/daily-outfits')"
-            class="px-6 py-3 border-2 border-primary-300 text-primary-600 rounded-cute hover:bg-primary-50 transition-all"
-          >
-            📅 穿搭日记
-          </button>
+  <MainLayout>
+    <div class="py-8 px-4">
+      <div class="max-w-6xl mx-auto">
+        <!-- 头部 -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">👔 我的衣橱</h1>
+            <p class="text-gray-600">管理你的所有服装</p>
+          </div>
           <button
             @click="router.push('/clothes/new')"
             class="bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold px-6 py-3 rounded-cute hover:from-primary-600 hover:to-primary-700 transition-all transform hover:scale-105 shadow-cute"
@@ -21,7 +15,6 @@
             ➕ 添加服装
           </button>
         </div>
-      </div>
 
       <!-- 分类筛选 -->
       <div class="bg-white rounded-cute shadow-cute p-4 mb-6">
@@ -125,7 +118,8 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+  </MainLayout>
 </template>
 
 <script setup lang="ts">
@@ -133,6 +127,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getClothes, deleteClothing } from '@/api/clothing'
 import type { Clothing } from '@/types'
+import MainLayout from '@/components/MainLayout.vue'
 
 const router = useRouter()
 const loading = ref(false)

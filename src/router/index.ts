@@ -60,6 +60,24 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/WeatherStatistics.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/outfits',
+    name: 'OutfitList',
+    component: () => import('@/views/OutfitList.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/outfits/new',
+    name: 'OutfitNew',
+    component: () => import('@/views/OutfitForm.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/outfits/edit/:id',
+    name: 'OutfitEdit',
+    component: () => import('@/views/OutfitForm.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 const router = createRouter({
