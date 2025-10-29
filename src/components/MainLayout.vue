@@ -6,9 +6,10 @@
         <div class="flex justify-between items-center h-16">
           <!-- Logo和品牌 -->
           <div class="flex items-center">
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
-              DADA 👗
+            <h1 class="text-2xl font-bold">
+              🎉
             </h1>
+            <span class="ml-2 text-primary-500 font-bold">慧搭</span>
           </div>
 
           <!-- 导航菜单 -->
@@ -93,10 +94,15 @@ const isActive = (path: string) => {
   return route.path.startsWith(path)
 }
 
-// 获取用户信息
 const userName = computed(() => {
-  return localStorage.getItem('username') || '用户'
+  const userStr = localStorage.getItem('user')
+  if (userStr) {
+    const user = JSON.parse(userStr)
+    return user.nickname || user.username
+  }
+  return '用户'
 })
+
 
 const userInitial = computed(() => {
   const name = userName.value

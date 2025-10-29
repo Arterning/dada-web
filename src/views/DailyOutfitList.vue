@@ -16,6 +16,16 @@
           </button>
         </div>
 
+        <div class="flex items-center gap-3 p-4 bg-white rounded-cute shadow-cute mb-8">
+          <div class="w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center text-white text-xl">
+            {{ userInitial }}
+          </div>
+          <div>
+            <p class="font-semibold text-gray-800">{{ userName }}</p>
+            <p class="text-sm text-gray-500">已记录 {{ outfits.length }} 天穿搭</p>
+          </div>
+        </div>
+
         <!-- 天气卡片 -->
         <div class="mb-6">
           <WeatherCard />
@@ -104,7 +114,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { getDailyOutfits, deleteDailyOutfit } from '@/api/dailyOutfit'
 import type { DailyOutfit } from '@/types'
@@ -168,6 +178,22 @@ const getWeatherEmoji = (weather?: string) => {
   if (weather.includes('雪')) return '❄️'
   return '📅'
 }
+
+
+const userName = computed(() => {
+  const userStr = localStorage.getItem('user')
+  if (userStr) {
+    const user = JSON.parse(userStr)
+    return user.nickname || user.username
+  }
+  return '用户'
+})
+
+
+const userInitial = computed(() => {
+  const name = userName.value
+  return name.charAt(0).toUpperCase()
+})
 
 onMounted(() => {
   loadOutfits()
